@@ -1,0 +1,31 @@
+@startuml
+actor Orchestrator
+participant AuthService
+participant UserProfile
+participant DiscussionService
+database User
+database Discussion
+database Comment
+
+
+Orchestrator -> AuthService: Sign Up Request
+AuthService -> UserProfile: Create User
+UserProfile -> User: Check email & mobileNo uniqueness
+User --> UserProfile: Uniqueness confirmed
+UserProfile -> User: Create new user
+User --> UserProfile: User created
+UserProfile --> AuthService: User created
+AuthService --> Orchestrator: Sign Up Success
+
+Orchestrator -> AuthService: Login Request
+AuthService -> UserProfile: Validate Credentials
+UserProfile --> AuthService: Credentials Validated
+AuthService --> Orchestrator: Auth Token
+
+Orchestrator -> DiscussionService: Create Discussion (Auth Token)
+DiscussionService -> AuthService: Validate Auth Token
+AuthService --> DiscussionService: Auth Token Validated
+DiscussionService -> Discussion: Store new discussion
+Discussion --> DiscussionService: Discussion created
+DiscussionService --> Orchestrator: Discussion Created Success
+@enduml
