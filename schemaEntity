@@ -1,0 +1,50 @@
+Schemas:
+
+
+User:
+
+{
+  "User": {
+    "id": "UUID",
+    "name": "String",
+    "mobileNo": "String",
+    "email": "String",
+    "password": "String",
+    "followers": ["user1", "user2", ..],  // List of User IDs
+    "following": ["user1", "user2", ..],  // List of User IDs
+    "createdAt": "DateTime",
+    "updatedAt": "DateTime"
+  }
+}
+
+Discussion:
+
+{
+  "Discussion": {
+    "id": "UUID",
+    "userId": "UUID",
+    "text": "String",
+    "image": "String", //url
+    "hashtags": ["hashtag1", "hashtag2", ...], 
+    "createdAt": "1718296947000", //epoch
+    "updatedAt": "1718296947000", //epoch
+    "likes": ["userId1", ...],  // List of UserIds
+    "comments": ["commentId1", ..],  // List of Comment IDs
+    "viewCount": "50"
+  }
+}
+
+Comments:
+
+{
+  "Comment": {
+    "id": "UUID",
+    "discussionId": "UUID",  // Discussion to which this comment belongs
+    "userId": "UUID",  // User who created the comment
+    "text": "String",
+    "createdAt": "1718296947000",
+    "updatedAt": "1718296947000",
+    "likes": ["UUID"],  // List of UserIds
+    "replies": ["UUID"]  // List of CommentIds
+  }
+}
